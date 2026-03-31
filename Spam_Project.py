@@ -82,8 +82,8 @@ with st.sidebar:
 
 
 st.write("\n")
-st.write("#### Enter Msg")
-sample=st.text_input("")
+st.write("#### 🚫 Spam Message Detector")
+sample=st.text_area("Enter Message...", placeholder="e.g. Win a Brand new iPhone 15! Click here to claim...", height=100)
 if st.button("Predict"):
     pred=model.predict([sample])
     prob=model.predict_proba([sample])
