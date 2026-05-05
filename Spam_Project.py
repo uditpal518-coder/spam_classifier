@@ -36,6 +36,26 @@ st.markdown("""
         opacity: 0.9;
         margin-top: 10px;
     }
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+        .main-heading {
+            font-size: 2.2rem;
+        }
+        .sub-text {
+            font-size: 1.1rem;
+        }
+        .stButton>button {
+            width: 100%;
+            font-size: 16px;
+            height: 2.5em;
+            border-radius: 10px;
+            background-color: #ff4b4b;
+            color: white;
+        }
+    }
 
     </style>
     
@@ -57,7 +77,7 @@ with st.sidebar:
 
     st.divider()
 
-    st.image("spam.jpg")
+    st.image("spam.jpg", use_container_width=True)
 
     st.divider()
     
@@ -84,7 +104,7 @@ with st.sidebar:
 st.write("\n")
 st.write("#### 🚫 Spam Message Detector")
 sample=st.text_area("Enter Message...", placeholder="e.g. Win a Brand new iPhone 15! Click here to claim...", height=100)
-if st.button("Predict"):
+if st.button("Predict",use_container_width=True):
     pred=model.predict([sample])
     prob=model.predict_proba([sample])
     if pred[0]=='ham':
@@ -106,15 +126,15 @@ if data_source == "Upload your own file":
     if file:
         df = pd.read_csv(file, names=["Messages"])
 elif data_source == "Use Sample File":
-    with open("reviews.txt", "br") as file:
+    with open("spam.txt", "br") as file:
         df = pd.read_csv(file, names=["Messages"])
-if file:
+if df is not None:
     placeholder=st.empty()
-    placeholder.dataframe(df)
-    if st.button("Predict",key="b2"):
+    placeholder.dataframe(df, use_container_width=True)
+    if st.button("Predict",key="b2",use_container_width=True):
         corpus=df.MSG
         pred=model.predict(corpus)
         prob=np.max(model.predict_proba(corpus),axis=1)
         df['Msg Type']=pred
         df['Confidance']=prob
-        placeholder.dataframe(df)
+        placeholder.dataframe(df,use_container_width=True)
