@@ -99,9 +99,16 @@ if st.button("Predict"):
 st.divider()
 
 st.write("#### Bulk Prediction")
-file=st.file_uploader("select file",type=["csv","txt"])
+data_source = st.radio("Choose Data Source:",["Upload your own file","Use Sample File"])
+df = None
+if data_source == "Upload your own file":
+    file = st.file_uploader("Upload CSV & TEXT", type=["csv","txt"])
+    if file:
+        df = pd.read_csv(file, names=["Messages"])
+elif data_source == "Use Sample File":
+    with open("reviews.txt", "br") as file:
+        df = pd.read_csv(file, names=["Messages"])
 if file:
-    df=pd.read_csv(file,names=["MSG"])
     placeholder=st.empty()
     placeholder.dataframe(df)
     if st.button("Predict",key="b2"):
