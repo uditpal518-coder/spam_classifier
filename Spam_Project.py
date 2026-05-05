@@ -132,7 +132,7 @@ if df is not None:
     placeholder=st.empty()
     placeholder.dataframe(df, use_container_width=True)
     if st.button("Predict",key="b2",use_container_width=True):
-        corpus=df.MSG
+        corpus=df.Messages
         pred=model.predict(corpus)
         prob=np.max(model.predict_proba(corpus),axis=1)
         df['Msg Type']=pred
