@@ -103,10 +103,8 @@ with st.sidebar:
 
 st.write("\n")
 st.write("#### 🚫 Spam Message Detector")
-with st.form("my_form",clear_on_submit=True):
-    sample=st.text_area("Enter Message...", placeholder="e.g. Win a Brand new iPhone 15! Click here to claim...", height=100)
-    submit_button = st.form_submit_button("Predict",use_container_width=True)
-if submit_button:
+sample=st.text_area("Enter Message...", placeholder="e.g. Win a Brand new iPhone 15! Click here to claim...", height=100)
+if st.button("Predict",use_container_width=True)
     pred=model.predict([sample])
     prob=model.predict_proba([sample])
     if pred[0]=='ham':
